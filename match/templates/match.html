@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ myprofile.user.username }}'s Profile</h1>
+
+<div>
+    <img src="{{ myprofile.profile_picture.url }}" alt="Profile Picture">
+    <p><strong>Age:</strong> {{ myprofile.age }}</p>
+    <p><strong>Location:</strong> {{ myprofile.location }}</p>
+    <p><strong>Interests:</strong> {{ myprofile.interests }}</p>
+    <p><strong>Bio:</strong> {{ myprofile.bio }}</p>
+</div>
+
+{% if best_match %}
+    <h2>Your Best Match</h2>
+    <div>
+        <h3>{{ best_match.user.username }}</h3>
+        <img src="{{ best_match.profile_picture.url }}" alt="Best Match Picture">
+        <p><strong>Age:</strong> {{ best_match.age }}</p>
+        <p><strong>Location:</strong> {{ best_match.location }}</p>
+        <p><strong>Interests:</strong> {{ best_match.interests }}</p>
+        <p><strong>Bio:</strong> {{ best_match.bio }}</p>
+        <p><strong>Match Score:</strong> {{ best_score }}</p>
+        {% if best_match.is_liked_by_current_user %}
+                <button disabled>Liked</button>
+            {% else %}
+                <a href="{% url 'like_profile' best_match.id %}"><button>Like</button></a>
+            {% endif %}
+            
+            {% if best_match.is_liked_by_current_user %}
+                <a href="{% url 'dislike_profile' best_match.id %}"><button>Dislike</button></a>
+            {% else %}
+                <button disabled>Disliked</button>
+            {% endif %}
+
+            <!-- Match if both liked each other -->
+            {% if best_match.is_liked_by_current_user and best_match.is_liked_by_other_user %}
+                <p>It's a match!</p>
+            {% endif %}
+    </div>
+{% else %}
+    <p>No match found yet.</p>
+{% endif %}
+
+<h3>All Matches</h3>
+<ul>
+    {% for match, score in all_matches %}
+        <li>
+            <div>
+                <h4>{{ match.user.username }} (Score: {{ score }})</h4>
+                <img src="{{ match.profile_picture.url }}" alt="Match Picture">
+                <p><strong>Age:</strong> {{ match.age }}</p>
+                <p><strong>Location:</strong> {{ match.location }}</p>
+                <p><strong>Interests:</strong> {{ match.interests }}</p>
+                {% if match.is_liked_by_current_user %}
+                <button disabled>Liked</button>
+            {% else %}
+                <a href="{% url 'like_profile' match.id %}"><button>Like</button></a>
+            {% endif %}
+            
+            {% if match.is_liked_by_current_user %}
+                <a href="{% url 'dislike_profile' match.id %}"><button>Dislike</button></a>
+            {% else %}
+                <button disabled>Disliked</button>
+            {% endif %}
+
+            <!-- Match if both liked each other -->
+            {% if match.is_liked_by_current_user and match.is_liked_by_other_user %}
+                <p>It's a match!</p>
+                <a href="{% url 'conversation' match.id %}"><button >Start a conversation</button></a>
+            {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

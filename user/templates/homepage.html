@@ -1,0 +1,85 @@
+
+{% block content %}
+<div class="home-container">
+    <div class="header">
+        <div class="logo">
+            <h1><a href="">DatingApp</a></h1>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'login' %}" class="login-btn">Log In</a>
+            <a href="{% url 'register' %}" class="register-btn">Sign Up</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="welcome-message">
+            <h2>Welcome to DatingApp!</h2>
+            <p>The best place to connect and share your moments.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 DatingApp. All rights reserved.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .home-container {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .logo h1 a {
+        text-decoration: none;
+        color: #000;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #0095f6;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .register-btn {
+        background-color: #0095f6;
+        color: white;
+    }
+
+    .login-btn {
+        border: 2px solid #0095f6;
+        color: #0095f6;
+    }
+
+    .content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .welcome-message h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        margin-top: 40px;
+        text-align: center;
+    }
+</style>
+{% endblock %}

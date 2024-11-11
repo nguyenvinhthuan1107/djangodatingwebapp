@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-header">
+        <a href="{% url 'chatchit' %}" class="back-btn">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        <div class="user-info">
+            <img src="{{ other_user.profile_picture.url }}" alt="Profile Picture" class="profile-img">
+            <span>{{ other_user.user.username }}</span>
+        </div>
+    </div>
+
+    <div class="chat-messages">
+        {% for message in messages %}
+            {% if message.sender == request.user.userprofile %}
+                <div class="message sent">
+                    <p>{{ message.content }}</p>
+                    <span class="timestamp">{{ message.timestamp|date:"H:i" }}</span>
+                </div>
+            {% else %}
+                <div class="message received">
+                    <p>{{ message.content }}</p>
+                    <span class="timestamp">{{ message.timestamp|date:"H:i" }}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="message-input">
+        <form method="post" action="{% url 'send_message' %}">
+            {% csrf_token %}
+            <input type="hidden" name="receiver_id" value="{{ other_user.id }}">
+            <textarea name="content" placeholder="Type a message..." required></textarea>
+            <button type="submit" class="send-btn">
+                <i class="fa fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #fafafa;
+    }
+
+    .chat-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .back-btn {
+        font-size: 24px;
+        color: #000;
+        margin-right: 10px;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: scroll;
+        padding: 10px;
+        background-color: #f0f0f0;
+    }
+
+    .message {
+        max-width: 70%;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .sent {
+        background-color: #007bff;
+        color: white;
+        margin-left: auto;
+        border-top-right-radius: 0;
+    }
+
+    .received {
+        background-color: #e5e5e5;
+        color: black;
+        border-top-left-radius: 0;
+    }
+
+    .timestamp {
+        font-size: 12px;
+        color: #888;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .message-input {
+        display: flex;
+        padding: 10px;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+    }
+
+    .message-input textarea {
+        width: 90%;
+        height: 50px;
+        padding: 10px;
+        border-radius: 25px;
+        border: 1px solid #ddd;
+        resize: none;
+    }
+
+    .send-btn {
+        width: 40px;
+        height: 40px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .send-btn i {
+        line-height: 40px;
+    }
+
+    .message-input textarea:focus {
+        outline: none;
+        border-color: #007bff;
+    }
+</style>
+{% endblock %}

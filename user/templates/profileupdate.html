@@ -1,0 +1,9 @@
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Cập nhật ảnh đại diện</button>
+</form>
+
+{% if user.profile.image %}
+    <img src="{{ user.profile.image.url }}" alt="Profile Image" width="100">
+{% endif %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="register-container">
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        <form method="POST" class="register-form">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <button type="submit" class="submit-btn">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-container {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #fafafa;
+    }
+
+    .form-container {
+        width: 350px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+
+    .register-form input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .submit-btn {
+        background-color: #0095f6;
+        color: white;
+        padding: 12px;
+        border: none;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #0078d4;
+    }
+
+    p {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    a {
+        color: #0095f6;
+        text-decoration: none;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,49 @@
+# Python Bytecode Files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pdb
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Django Stuff:
+*.log
+*.pot
+*.py[cod]
+db.sqlite3         # Ignore SQLite if using it during development (PostgreSQL will be your prod DB)
+
+media/             # Ignore media files (uploads)
+*.bak              # Backup files
+*.swp              # Swap files from text editors
+*.swo              # Swap files from text editors
+
+# Environment Variables
+.env               # If you have an .env file for environment variables
+
+# PostgreSQL database dump files (if you have any database dump files you might create for backups)
+*.sql
+*.sql.gz
+
+# Django migrations (sometimes people choose to ignore migrations, but generally, they should be tracked in Git)
+# If you want to ignore migration files, uncomment the following line:
+# */migrations/*
+
+# Local settings for Django (if any)
+local_settings.py  # If you have a `local_settings.py` to store secret keys, dev settings, etc.
+
+# IDEs and Text Editors
+.vscode/           # VSCode settings
+.idea/             # JetBrains / PyCharm settings
+*.sublime-workspace
+*.sublime-project
+
+# System Files
+.DS_Store          # macOS system file
+Thumbs.db          # Windows system file
+
+# Python Wheels
+*.whl
